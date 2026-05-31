@@ -31,6 +31,7 @@ add sfx
 Make it so that the archer logo in outposts in the same as in archery range
 
 make the arrows more subtle
+
 *Tips*
 
 If a chat with claude is getting long, take the code and start a new one to use less credits
