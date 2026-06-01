@@ -1,6 +1,6 @@
 # AoE-html-Remake
 
-To develop the Game, I personnaly am going to use a combination of Claude and Codex, you guys can use anything you wont, avoid using smaller AI like ChatGPT. To avoid us doing the same thing, put all ideas and changes in here and assign a person to them. Add your ideas to here aswell. Test the Game after every update, and instead of changing one file, make a new one to have backup. Dont delete olf files and Name files properly in this way.
+To develop the Game, I personnaly am going to use a combination of Claude and Codex, you guys can use anything you want, avoid using smaller AI like ChatGPT. To avoid us doing the same thing, put all ideas and changes in here and assign a person to them. Add your ideas to here aswell. Test the Game after every update, and instead of changing one file, make a new one to have backup. Dont delete olf files and Name files properly in this way.
 
 AoE_Time_Day_Month_Year
 
