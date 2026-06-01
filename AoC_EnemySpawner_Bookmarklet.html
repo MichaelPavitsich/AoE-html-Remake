@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AoC Enemy Spawner — Bookmarklet</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:#0a0c08;
+    font-family:'Courier New',monospace;
+    color:#c8d890;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:40px 20px;
+  }
+
+  h1{
+    color:#90d040;
+    font-size:16px;
+    font-weight:bold;
+    letter-spacing:4px;
+    text-transform:uppercase;
+    text-shadow:0 0 10px rgba(100,200,40,0.6),2px 2px 0 rgba(0,0,0,0.8);
+    margin-bottom:6px;
+  }
+  .sub{
+    color:#3a5820;
+    font-size:9px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    margin-bottom:36px;
+  }
+
+  .card{
+    background:linear-gradient(180deg,rgba(4,8,3,0.99) 0%,rgba(6,12,4,0.97) 100%);
+    border:2px solid #4a6820;
+    box-shadow:0 0 0 1px #1a2808, 0 8px 40px rgba(0,0,0,0.95);
+    padding:28px 32px;
+    width:100%;
+    max-width:560px;
+    margin-bottom:28px;
+  }
+
+  .section-label{
+    font-size:8px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:#3a5820;
+    border-bottom:1px solid #1a2808;
+    padding-bottom:5px;
+    margin-bottom:14px;
+  }
+
+  .step{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    margin-bottom:12px;
+    font-size:10px;
+    color:#7a9060;
+    letter-spacing:0.5px;
+    line-height:1.6;
+  }
+  .step-num{
+    flex-shrink:0;
+    width:18px;height:18px;
+    border:1px solid #3a5820;
+    background:#0c100a;
+    color:#90d040;
+    font-size:9px;
+    font-weight:bold;
+    display:flex;align-items:center;justify-content:center;
+    margin-top:1px;
+  }
+  .step strong{ color:#c8e870; }
+
+  .bookmark-btn{
+    display:inline-block;
+    margin-top:8px;
+    padding:9px 20px;
+    background:rgba(20,40,8,0.9);
+    border:2px solid #4a7820;
+    color:#90d040;
+    font-family:'Courier New',monospace;
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    text-decoration:none;
+    cursor:grab;
+    transition:border-color 0.1s,background 0.1s,box-shadow 0.1s;
+    box-shadow:0 0 0 1px #1a2808;
+    user-select:none;
+  }
+  .bookmark-btn:hover{
+    border-color:#90d040;
+    background:rgba(30,60,10,0.9);
+    color:#c8ff60;
+    box-shadow:0 0 12px rgba(100,200,40,0.25), 0 0 0 1px #2a4010;
+    cursor:grab;
+  }
+  .bookmark-btn:active{ cursor:grabbing; }
+
+  .drag-hint{
+    font-size:8px;
+    color:#2a4810;
+    letter-spacing:1px;
+    margin-top:8px;
+    text-transform:uppercase;
+  }
+
+  .feature-list{
+    font-size:9px;
+    color:#506838;
+    letter-spacing:0.5px;
+    line-height:1.8;
+    margin-top:6px;
+  }
+  .feature-list li{
+    list-style:none;
+    padding-left:0;
+  }
+  .feature-list li::before{
+    content:'▸ ';
+    color:#4a6820;
+  }
+  .feature-list .hi{ color:#7ab040; }
+
+  .code-note{
+    font-size:8px;
+    color:#2a4010;
+    letter-spacing:0.5px;
+    line-height:1.6;
+    margin-top:14px;
+    padding:8px 10px;
+    border:1px solid #1a2808;
+    background:#060a04;
+  }
+
+  .divider{
+    border:none;
+    border-top:1px solid #1a2808;
+    margin:18px 0;
+  }
+</style>
+</head>
+<body>
+
+<h1>⚔ Enemy Spawner Mod</h1>
+<div class="sub">Ages of Conflict — Bookmarklet</div>
+
+<div class="card">
+  <div class="section-label">Installation</div>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div>Make sure your browser's <strong>bookmarks bar is visible</strong>
+    (Ctrl+Shift+B in Chrome / Edge, ⌘+Shift+B in Safari).</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div><strong>Drag the button below</strong> onto your bookmarks bar. A new bookmark called
+    "⚔ Enemy Spawner" will appear.</div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div>Open <strong>Ages of Conflict</strong> in your browser, then click the bookmark.
+    The mod panel will appear in the top-right corner of the game.</div>
+  </div>
+
+  <hr class="divider">
+
+  <div style="text-align:center;">
+    <a class="bookmark-btn" id="bm-link" href="#">⚔ Enemy Spawner</a>
+    <div class="drag-hint">← drag this to your bookmarks bar</div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="section-label">Features</div>
+  <ul class="feature-list">
+    <li>Spawn <span class="hi">1–50 enemies</span> at once using the count slider</li>
+    <li><span class="hi">Click-to-Spawn mode</span> — click anywhere on the map to place enemies at that exact world position</li>
+    <li><span class="hi">Random Edge mode</span> — enemies arrive from a random map edge like normal waves</li>
+    <li>Activates <span class="hi">waveActive</span> so enemies immediately begin attacking your base</li>
+    <li>Enemies are identical to normal raiders — full AI, HP, attack behaviour</li>
+    <li>Panel styled to match the game's pixel-art HUD</li>
+    <li>Press <span class="hi">ESC</span> or click ✕ to close the panel</li>
+  </ul>
+  <div class="code-note">
+    ⚠ Only works on the Ages of Conflict HTML file loaded in a browser tab.<br>
+    The bookmarklet reads the game's internal <code>enemies</code>, <code>createLegacyFromDefinition</code>,
+    <code>camX</code>, <code>camY</code>, and <code>camZoom</code> variables directly from the page's scope.
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+//  BOOKMARKLET SOURCE  (formatted for readability, minified before injection)
+// ─────────────────────────────────────────────────────────────────────────────
+const bookmarkletSource = `(function(){
+  // Don't double-inject
+  if(document.getElementById('__aoc_spawner')) return;
+
+  // ── Helpers ──────────────────────────────────────────────────────────────
+  function spawnAt(worldX, worldY, count){
+    if(typeof createLegacyFromDefinition !== 'function') return;
+    if(typeof enemies === 'undefined') return;
+    waveActive = true;
+    for(let i = 0; i < count; i++){
+      const ex = worldX + (Math.random()-0.5)*32;
+      const ey = worldY + (Math.random()-0.5)*32;
+      const en = createLegacyFromDefinition('enemySpearman', {
+        x:ex, y:ey, dir:1,
+        anim:'walk', frame:0, frameTimer:0,
+        state:'seeking',
+        attackTarget:null, attackAngle:0,
+        attackTimer:0,
+        hp:40, maxHp:40,
+        speed:38,
+      }, enemies);
+      enemies.push(en);
+    }
+  }
+
+  function spawnOnEdge(count){
+    if(typeof MAP_W === 'undefined') return;
+    const BORDER_VAL = typeof BORDER !== 'undefined' ? BORDER : 60;
+    const margin = BORDER_VAL + 10;
+    const edge = Math.floor(Math.random()*4);
+    let ax, ay;
+    if(edge===0){      ax=margin+Math.random()*(MAP_W-margin*2); ay=margin+10; }
+    else if(edge===1){ ax=MAP_W-margin-10; ay=margin+Math.random()*(MAP_H-margin*2); }
+    else if(edge===2){ ax=margin+Math.random()*(MAP_W-margin*2); ay=MAP_H-margin-10; }
+    else{              ax=margin+10; ay=margin+Math.random()*(MAP_H-margin*2); }
+    spawnAt(ax, ay, count);
+  }
+
+  // ── Styles ────────────────────────────────────────────────────────────────
+  const style = document.createElement('style');
+  style.textContent = \`
+  #__aoc_spawner {
+    position:fixed; top:48px; right:14px; z-index:9999;
+    width:220px;
+    background:linear-gradient(180deg,rgba(4,8,3,0.99) 0%,rgba(6,12,4,0.97) 100%);
+    border:2px solid #4a6820;
+    box-shadow:0 0 0 1px #1a2808, 0 6px 30px rgba(0,0,0,0.95);
+    font-family:'Courier New',monospace;
+    image-rendering:pixelated;
+    pointer-events:all;
+  }
+  #__aoc_spawner * { box-sizing:border-box; margin:0; padding:0; }
+  #__aoc_sp_head {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:6px 10px;
+    border-bottom:2px solid #2a3810;
+    background:rgba(4,10,2,0.9);
+  }
+  #__aoc_sp_title {
+    color:#90d040; font-size:10px; font-weight:bold;
+    letter-spacing:3px; text-transform:uppercase;
+    text-shadow:0 0 8px rgba(100,200,40,0.6);
+  }
+  #__aoc_sp_close {
+    color:#3a5020; font-size:9px; cursor:pointer;
+    border:1px solid #2a3810; background:rgba(0,0,0,0.5);
+    padding:2px 5px; line-height:1;
+    transition:color 0.1s, border-color 0.1s;
+  }
+  #__aoc_sp_close:hover { color:#90d040; border-color:#4a7020; }
+  #__aoc_sp_body { padding:10px 10px 12px; }
+  .__aoc_row {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:8px;
+  }
+  .__aoc_lbl {
+    font-size:8px; color:#506838; text-transform:uppercase; letter-spacing:1px;
+  }
+  .__aoc_val {
+    font-size:10px; color:#c8e870; font-weight:bold;
+    text-shadow:0 0 4px rgba(180,220,80,0.4);
+  }
+  #__aoc_slider {
+    width:100%; height:4px; margin-bottom:10px;
+    -webkit-appearance:none; appearance:none;
+    background:#0e1a0a; border:1px solid #2a3810; outline:none;
+    cursor:pointer;
+  }
+  #__aoc_slider::-webkit-slider-thumb {
+    -webkit-appearance:none; width:12px; height:12px;
+    background:#70c030; border:1px solid #4a8020;
+    cursor:pointer; box-shadow:0 0 6px rgba(100,200,40,0.4);
+  }
+  #__aoc_slider::-moz-range-thumb {
+    width:12px; height:12px;
+    background:#70c030; border:1px solid #4a8020;
+    cursor:pointer; box-shadow:0 0 6px rgba(100,200,40,0.4);
+  }
+  .__aoc_divider {
+    border:none; border-top:1px solid #1a2808; margin:8px 0;
+  }
+  .__aoc_btn {
+    display:block; width:100%; padding:7px 0; margin-bottom:6px;
+    background:rgba(14,26,8,0.9); border:1px solid #3a5820;
+    color:#90d040; font-family:'Courier New',monospace;
+    font-size:9px; letter-spacing:2px; text-transform:uppercase;
+    cursor:pointer; transition:border-color 0.1s, background 0.1s;
+  }
+  .__aoc_btn:hover { border-color:#90d040; background:rgba(30,55,12,0.9); color:#c8ff60; }
+  .__aoc_btn:last-child { margin-bottom:0; }
+  .__aoc_btn.red { border-color:#603020; color:#cc4020; }
+  .__aoc_btn.red:hover { border-color:#cc4020; background:rgba(40,12,4,0.9); color:#ff6040; }
+  .__aoc_btn.active-mode { border-color:#ff6030; color:#ff8050; background:rgba(40,12,4,0.9);
+    box-shadow:inset 0 0 8px rgba(255,80,30,0.15); animation:__aoc_pulse 1s infinite alternate; }
+  @keyframes __aoc_pulse {
+    from { box-shadow:inset 0 0 8px rgba(255,80,30,0.10); }
+    to   { box-shadow:inset 0 0 12px rgba(255,80,30,0.35); }
+  }
+  .__aoc_status {
+    font-size:8px; color:#4a6820; letter-spacing:1px; text-align:center;
+    margin-top:8px; min-height:12px;
+  }
+  .__aoc_status.ok { color:#70c030; }
+  .__aoc_status.warn { color:#cc4020; }
+  \`;
+  document.head.appendChild(style);
+
+  // ── Panel DOM ─────────────────────────────────────────────────────────────
+  const panel = document.createElement('div');
+  panel.id = '__aoc_spawner';
+  panel.innerHTML = \`
+    <div id="__aoc_sp_head">
+      <span id="__aoc_sp_title">⚔ Enemy Spawner</span>
+      <span id="__aoc_sp_close">✕</span>
+    </div>
+    <div id="__aoc_sp_body">
+      <div class="__aoc_row">
+        <span class="__aoc_lbl">Count</span>
+        <span class="__aoc_val" id="__aoc_count_lbl">5</span>
+      </div>
+      <input type="range" id="__aoc_slider" min="1" max="50" value="5">
+      <hr class="__aoc_divider">
+      <button class="__aoc_btn" id="__aoc_btn_edge">▸ Spawn on Map Edge</button>
+      <button class="__aoc_btn" id="__aoc_btn_toggle">⊕ Click-to-Spawn: OFF</button>
+      <div class="__aoc_status" id="__aoc_status"></div>
+    </div>
+  \`;
+  document.body.appendChild(panel);
+
+  // ── State ─────────────────────────────────────────────────────────────────
+  let clickMode = false;
+  let clickHandler = null;
+
+  const slider      = document.getElementById('__aoc_slider');
+  const countLbl    = document.getElementById('__aoc_count_lbl');
+  const btnEdge     = document.getElementById('__aoc_btn_edge');
+  const btnToggle   = document.getElementById('__aoc_btn_toggle');
+  const btnClose    = document.getElementById('__aoc_sp_close');
+  const statusEl    = document.getElementById('__aoc_status');
+
+  function getCount(){ return parseInt(slider.value, 10); }
+  function setStatus(msg, cls){
+    statusEl.textContent = msg;
+    statusEl.className = '__aoc_status' + (cls ? ' '+cls : '');
+    if(cls==='ok') setTimeout(()=>{ statusEl.textContent=''; statusEl.className='__aoc_status'; }, 2000);
+  }
+
+  slider.addEventListener('input', ()=>{ countLbl.textContent = slider.value; });
+
+  btnEdge.addEventListener('click', ()=>{
+    const c = getCount();
+    spawnOnEdge(c);
+    setStatus('Spawned ' + c + ' raiders on edge', 'ok');
+  });
+
+  function enableClickMode(){
+    clickMode = true;
+    btnToggle.textContent = '⊗ Click-to-Spawn: ON';
+    btnToggle.classList.add('active-mode');
+    document.body.style.cursor = 'crosshair';
+    setStatus('Click on the map to spawn', '');
+    clickHandler = function(e){
+      // Ignore clicks on the panel itself
+      if(panel.contains(e.target)) return;
+      e.stopPropagation();
+      e.preventDefault();
+      // Convert screen coords → world coords using game camera
+      const wx = (e.clientX / (typeof camZoom !== 'undefined' ? camZoom : 1)) + (typeof camX !== 'undefined' ? camX : 0);
+      const wy = (e.clientY / (typeof camZoom !== 'undefined' ? camZoom : 1)) + (typeof camY !== 'undefined' ? camY : 0);
+      const c = getCount();
+      spawnAt(wx, wy, c);
+      setStatus('Spawned ' + c + ' at (' + Math.round(wx) + ', ' + Math.round(wy) + ')', 'ok');
+    };
+    document.addEventListener('click', clickHandler, true);
+  }
+
+  function disableClickMode(){
+    clickMode = false;
+    btnToggle.textContent = '⊕ Click-to-Spawn: OFF';
+    btnToggle.classList.remove('active-mode');
+    document.body.style.cursor = '';
+    statusEl.textContent = '';
+    if(clickHandler){
+      document.removeEventListener('click', clickHandler, true);
+      clickHandler = null;
+    }
+  }
+
+  btnToggle.addEventListener('click', ()=>{
+    if(clickMode) disableClickMode();
+    else enableClickMode();
+  });
+
+  function close(){
+    disableClickMode();
+    panel.remove();
+    style.remove();
+  }
+  btnClose.addEventListener('click', close);
+  document.addEventListener('keydown', function onKey(e){
+    if(e.key==='Escape' && clickMode){ disableClickMode(); return; }
+    if(e.key==='Escape' && document.getElementById('__aoc_spawner')){
+      close();
+      document.removeEventListener('keydown', onKey);
+    }
+  });
+
+  // Sanity-check for correct page
+  if(typeof createLegacyFromDefinition === 'undefined'){
+    setStatus('⚠ Not an AoC page!', 'warn');
+  }
+})();`;
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Minify (basic: collapse whitespace, preserve strings)
+// ─────────────────────────────────────────────────────────────────────────────
+function minify(src) {
+  // We can't safely collapse everything without a real parser, but
+  // we can collapse obvious whitespace outside string literals:
+  let out = '';
+  let inStr = false, strChar = '';
+  let prev = '';
+  for (let i = 0; i < src.length; i++) {
+    const ch = src[i];
+    if (!inStr) {
+      if (ch === '"' || ch === "'" || ch === '`') { inStr = true; strChar = ch; out += ch; }
+      else if (ch === '\n' || ch === '\r') { if (prev !== ';' && prev !== '{' && prev !== ',' && prev !== '(' && prev !== ')' && prev !== ' ') { out += ' '; prev = ' '; } }
+      else if (ch === ' ' || ch === '\t') { if (prev !== ' ') { out += ' '; prev = ' '; } }
+      else { out += ch; prev = ch; }
+    } else {
+      out += ch;
+      if (ch === strChar && src[i-1] !== '\\') { inStr = false; prev = ch; }
+    }
+  }
+  return out.trim();
+}
+
+const minified = minify(bookmarkletSource);
+const href = 'javascript:' + encodeURIComponent(minified);
+
+// Inject the href into the drag link
+document.getElementById('bm-link').href = href;
+</script>
+</body>
+</html>
