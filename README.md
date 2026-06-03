@@ -1,8 +1,6 @@
 
 Add a production queue display to the Town Center selection interface instead of placing it above the building itself. When the Town Center is selected, the selected-unit panel or UI box should show the units currently being trained. Each queued unit should display a small icon along with a progress bar indicating training completion. If multiple villagers are queued, the interface should clearly display the total queue count and update in real time as units are produced.
 
-Make farms selectable showing health and the ability to destroy, make it so that zoom changes in 5s, and remove the training dummy from the game completely
-
 Add hotkeys for producing units when a building is selected.
 
 Add a mill building that boosts food gathering efficiency.
