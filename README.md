@@ -22,3 +22,5 @@ add sfx
 Make it so that the archer logo in outposts in the same as in archery range
 
 make the arrows more subtle
+
+enemy pathfinding (and freindly)
