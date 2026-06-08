@@ -24,3 +24,6 @@ make the arrows more subtle
 enemy pathfinding (and freindly)
 
 ensure that buildings are removed when switching from raids to battle or vica versa
+
+make it so units cant walk through the border
+
