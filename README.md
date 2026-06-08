@@ -17,10 +17,10 @@ add markets
 
 new action for archers: Stand Ground, they will not move and only shoot, take less damage and have a higher range,
 
-add sfx
-
 Make it so that the archer logo in outposts in the same as in archery range
 
 make the arrows more subtle
 
 enemy pathfinding (and freindly)
+
+ensure that buildings are removed when switching from raids to battle or vica versa
